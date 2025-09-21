@@ -29,6 +29,8 @@
             <span class="text-sm text-red-500 mt-1">{{$message}}</span>
         @enderror
       </div>
+      <p class="mt-4 text-sm">Forget your password? <a href="{{route("password.request")}}" class="text-blue-400 hover:underline">reset now</a></p>
+
       <button type="submit" class="w-full py-3 mt-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Login</button>
       <p class="mt-4 text-sm text-center">Don’t have an account? <a href="{{route("register")}}" class="text-blue-400 hover:underline">Register</a></p>
     </form>

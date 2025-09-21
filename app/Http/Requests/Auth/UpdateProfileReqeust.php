@@ -5,7 +5,7 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateProfileRequest extends FormRequest{
+class UpdateProfileReqeust extends FormRequest{
 
     public function authorize(): bool{
         return true;

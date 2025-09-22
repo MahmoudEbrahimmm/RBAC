@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\GithubAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\MagicLoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\SocailAuthController;
@@ -22,6 +23,13 @@ Route::post('login', LoginController::class);
 // REGISTER ROUTES
 Route::view('/register', 'auth.register')->name('register');
 Route::post('register', RegisterController::class);
+
+// PASSWORDLESS LOGIN ROUTES
+Route::view('/login/magic', 'auth.passwordless-login')->name('login.magic');
+Route::post('/login/magic', [MagicLoginController::class, 'sendMagicLink']);
+Route::get('/login/magic/{user}', [MagicLoginController::class, 'loginHandler'])
+  ->name('login.magic.handler')
+  ->middleware('signed');
 
 // SOCIAL AUTH ROUTES
 Route::get("/auth/{driver}/redirect", [SocailAuthController::class, 'redirect']);

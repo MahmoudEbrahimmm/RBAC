@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\GithubAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
@@ -26,6 +27,11 @@ Route::get("/auth/google/callback", [GoogleAuthController::class, 'callback']);
 // GITHUB AUTH ROUTES
 Route::get("/auth/github/redirect", [GithubAuthController::class, 'redirect']);
 Route::get("/auth/github/callback", [GithubAuthController::class, 'callback']);
+
+// FACEBOOK AUTH ROUTES
+Route::get("/auth/facebook/redirect", [FacebookAuthController::class, 'redirect']);
+Route::get("/auth/facebook/callback", [FacebookAuthController::class, 'callback']);
+
 
 Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
 Route::post("/forgot-password", ForgotPasswordController::class)->name('password.email');

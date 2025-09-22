@@ -1,18 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>أُنشئ أنظمة حماية | My Laravel App</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #111827, #1f2937, #000);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            background: linear-gradient(to left, #34d399, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+        .card-custom {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid #2d3748;
+            border-radius: 1rem;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen">
-    <div class="text-center">
-        <h1 class="text-5xl font-bold mb-4">Welcome to My Laravel App</h1>
-        <p class="text-lg mb-8">This is a simple landing page built with Laravel and Tailwind CSS.</p>
-        <a href="{{ route('login') }}" class="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition">Login</a>
-        <a href="{{ route('register') }}" class="px-6 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition ml-4">Register</a>
+<body>
+
+
+
+    <div class="container text-center text-md-end">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card-custom p-5">
+                    <!-- العنوان -->
+                    <h1 class="display-5 mb-4">أُنشئ أنظمة حماية متكاملة — كل شيء أَبنيه بيدي</h1>
+
+                    <!-- الوصف -->
+                    <p class="fs-5 mb-4 text-light">
+                        مهندس نظم ومطور أُفضل الحلول المصممة يدويًا بدلاً من الاعتماد الكلي على الحزم الجاهزة.
+                        أُطوّر نظم حماية قوية، أُحكم كل سطر كود، وأضمن أداءً آمنًا وموثوقًا يناسب متطلباتك الخاصة.
+                    </p>
+
+                    <!-- الميزات -->
+                    <ul class="list-unstyled text-muted mb-5">
+                        <li>• تصميم وبناء يدوي لكل جزء من النظام (No black-box).</li>
+                        <li>• تركيز على الأمان والاعتمادية (Security by design).</li>
+                        <li>• حلول قابلة للتخصيص ومُحسّنة لأداء حقيقي في الإنتاج.</li>
+                    </ul>
+
+                    <!-- الأزرار -->
+                    <div class="d-flex gap-3 justify-content-md-start justify-content-center">
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary btn-lg px-4">تسجيل الدخول</a>
+                        <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg px-4">إنشاء حساب</a>
+                    </div>
+                </div>
+
+                <!-- التذييل -->
+                <p class="mt-4 text-secondary small text-center">
+                    هل تريد عرض مشاريع سابقة أو توضيح خدمات الحماية؟ تواصل معي لعرض محفظة الأعمال.
+                </p>
+            </div>
+        </div>
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

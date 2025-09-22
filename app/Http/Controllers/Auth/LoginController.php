@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Mail;
 class LoginController extends Controller{
 
     public function __invoke(LoginRequest $request){
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->identifier)
+            ->orWhere('phone',$request->identifier)
+        ->first();
 
         if(!$user || !Hash::check($request->password, $user->password)){
             return back()->with('error', 'Invalid credentials!');

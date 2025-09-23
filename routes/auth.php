@@ -44,10 +44,12 @@ Route::view('/reset-password/{token}', 'auth.reset-password')->name('password.re
 Route::post("/reset-password", ResetPasswordController::class)->name('password.update');
 
 // VERIFY EMAIL ROUTES
-Route::view("/verify-email/{email}", 'auth.verify-email')->name('email.verify');
-Route::post("/verify-email", VerifyAccountController::class);
+Route::view("/verify-account/{identifier}", 'auth.verify-account')->name('account.verify');
+Route::post("/verify-account",[ VerifyAccountController::class,'verifyOtp']);
 
-Route::middleware('auth')->group(function(){
+Route::post('/send-verification-otp', [VerifyAccountController::class,'sendOtp']);
+
+Route::middleware(['auth','auth.session'])->group(function(){
  // PROFILE ROUTES
  Route::view('/profile', 'auth.profile');
  Route::put('profile', UpdateProfileController::class);

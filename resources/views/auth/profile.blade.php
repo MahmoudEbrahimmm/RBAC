@@ -60,9 +60,16 @@
                         @enderror
                     </div>
                     <div class="mb-4">
-                        <label for="phone" class="block text-gray-300">phone</label>
+                        <label for="phone" class="block text-gray-300">Phone</label>
                         <input type="text" id="phone" name="phone" value="{{auth()->user()->phone}}" autofocus autocomplete="off" class="w-full p-3 rounded bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         @error('phone')
+                            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <input type="checkbox" name="logout_other_devices" id="logout_other_devices" {{auth()->user()->logout_other_devices ? 'checked' : ''}}>
+                        <label for="logout_other_devices" class="block text-gray-300 ml-1">Logout from other devices when login</label>
+                        @error('logout_other_devices')
                             <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
@@ -99,13 +106,23 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const activeTab = localStorage.getItem('activeTab') || 'profileTab';
+            showTab(activeTab);
+        });
         function showTab(tabId) {
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => {
                 tab.classList.add('hidden');
             });
-
+            const activeTabLink = document.querySelectorAll('a');
+            activeTabLink.forEach(link => {
+                link.classList.remove('border-blue-500', 'text-blue-500');
+            });
             document.getElementById(tabId).classList.remove('hidden');
+            const activeLink = document.querySelector(`a[onclick="showTab('${tabId}')"]`);
+            activeLink.classList.add('border-blue-500', 'text-blue-500');
+            localStorage.setItem('activeTab', tabId);
         }
     </script>
 </body>

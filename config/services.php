@@ -24,6 +24,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'resend' => [
+        'key' => env('RESEND_KEY'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
@@ -34,7 +38,7 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_CALLBACK_URL'),
+        'redirect' => env("GOOGLE_CALLBACK_URL"),
     ],
 
     'github' => [
@@ -49,10 +53,9 @@ return [
         'redirect' => env('FACEBOOK_CALLBACK_URL'),
     ],
 
-    'whatsapp' => [
-        'access_token' => env('WHATSAPP_ACCESS_TOKEN'),
-        'phone_id' => env('WHATSAPP_PHONE_ID'),
-        'template_name' => env('WHATSAPP_TEMPLATE_NAME'),
+    'recaptchav3' => [
+        'site_key' => env('RECAPTCHA_SITE_KEY'),
+        'secret_key' => env('RECAPTCHA_SECRET_KEY'),
     ],
 
-];
+];  

@@ -51,7 +51,7 @@ Route::post('/send-verification-otp', [VerifyAccountController::class,'sendOtp']
 
 Route::middleware(['auth','auth.session'])->group(function(){
  // PROFILE ROUTES
- Route::view('/profile', 'auth.profile');
+ Route::view('/profile', 'auth.profile')->name('profile');
  Route::put('profile', UpdateProfileController::class);
  Route::post('change-password', ChangePasswordController::class);
  

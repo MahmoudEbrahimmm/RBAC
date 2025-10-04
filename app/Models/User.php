@@ -37,5 +37,13 @@ class User extends Authenticatable
     public function roles() {
         return $this->belongsToMany(Role::class);
     }
+    public function permissions() {
+        return $this->roles()->with('permissions')->get()
+            ->pluck('permissions')->flatten()->pluck('name')
+            ->unique()->toArray();
+    }
+    public function hasPermissions(string $permission){
+        return in_array($permission, $this->permissions());
+    }
 
 }

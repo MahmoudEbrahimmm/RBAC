@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -60,8 +62,16 @@ Route::middleware(['auth','auth.session'])->group(function(){
  Route::post('logout/{session}',[LogoutController::class,'logoutDevice'])->name('logout_device');
 
  // Page routes
- Route::view('student','pages.student')->middleware('role:student');
- Route::view('teacher','pages.teacher')->middleware('role:teacher');
- Route::view('admin','pages.admin')->middleware('role:admin');
+ Route::view('student','pages.student')->middleware('permission:student');
+ Route::view('teacher','pages.teacher')->middleware('permission:teacher');
+ Route::view('admin','pages.admin')->middleware('permission:admin');
+
+   // ADMIN ROUTES
+  Route::prefix('admin')->group(function(){
+
+    Route::get('users', [UsersController::class, 'index']);
+    Route::get('users/{user}/change-role', [UsersController::class, 'changeRole']);
+    Route::resource('roles', RolesController::class);
+  });
 
 });

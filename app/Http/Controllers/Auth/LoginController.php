@@ -19,11 +19,7 @@ class LoginController extends Controller{
         if(!$user || !Hash::check($request->password, $user->password)){
             return back()->with('error', 'Invalid credentials!');
         }
-        // mailtrab 
-        // if(!$user->email_verified_at){
-            // Mail::to($user->email)->send(new VerifyAccountMail($user->otp, $user->email));
-            // return redirect()->route('account.verify', $user->email);
-        // }
+        
 
         Auth::login($user, $request->filled('remember'));
         if($user->logout_other_devices){

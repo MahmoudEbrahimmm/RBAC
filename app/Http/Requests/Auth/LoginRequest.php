@@ -15,7 +15,6 @@ class LoginRequest extends FormRequest{
             'identifier' => 'required|max:255',
             'password' => 'required|string|max:255',
             'remember' => 'nullable|in:on,off',
-            'g-recaptcha-response' => ['required', new RecaptchaV3Rule]
         ];
     }
 }

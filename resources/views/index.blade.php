@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أُنشئ أنظمة حماية | My Laravel App</title>
+    <title> My Laravel App</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -43,27 +43,22 @@
                     <h1 class="display-5 mb-4">أُنشئ أنظمة حماية متكاملة — كل شيء أَبنيه بيدي</h1>
 
                     <!-- الوصف -->
-                    <p class="fs-5 mb-4 text-light">
+                    <p class="fs-5 mb-4 text-white">
                         مهندس نظم ومطور أُفضل الحلول المصممة يدويًا بدلاً من الاعتماد الكلي على الحزم الجاهزة.
                         أُطوّر نظم حماية قوية، أُحكم كل سطر كود، وأضمن أداءً آمنًا وموثوقًا يناسب متطلباتك الخاصة.
                     </p>
-
-                    <!-- الميزات -->
-                    <ul class="list-unstyled text-muted mb-5">
-                        <li>• تصميم وبناء يدوي لكل جزء من النظام (No black-box).</li>
-                        <li>• تركيز على الأمان والاعتمادية (Security by design).</li>
-                        <li>• حلول قابلة للتخصيص ومُحسّنة لأداء حقيقي في الإنتاج.</li>
-                    </ul>
 
                     <!-- الأزرار -->
                     <div class="d-flex gap-3 justify-content-md-start justify-content-center">
                         <a href="{{ route('login') }}" class="btn btn-outline-primary btn-lg px-4">تسجيل الدخول</a>
                         <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg px-4">إنشاء حساب</a>
+                        <a href="{{ route('dashboard.index') }}" class="btn btn-outline-info btn-lg px-4">لوحة التحكم</a>
+
                     </div>
                 </div>
 
                 <!-- التذييل -->
-                <p class="mt-4 text-secondary small text-center">
+                <p class="mt-4 text-white small text-center">
                     هل تريد عرض مشاريع سابقة أو توضيح خدمات الحماية؟ تواصل معي لعرض محفظة الأعمال.
                 </p>
             </div>

@@ -34,7 +34,6 @@
             <span class="text-red-500 text-sm mt-1">{{$message}}</span>
         @enderror
       </div>
-      <p class="mt-4 text-sm">Forgot your passsword? <a href="{{route("password.request")}}" class="text-blue-400 hover:underline">Reset now</a></p>
       
       <div class="flex items-center mb-4">
           <input type="checkbox" name="remember" id="remember">
@@ -54,16 +53,6 @@
         class="g-recaptcha w-full py-3 mt-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >Login</button>
       
-      <p class="mt-4 text-sm">Login without password? <a href="{{route("login.magic")}}" class="text-blue-400 hover:underline">Login now</a></p>
-      <!-- Social Login Buttons Row -->
-      <div class="flex justify-between mt-4">
-        @foreach (config('social.providers') as $provider)
-          <a href="{{ url($provider['url']) }}" class="flex items-center justify-center w-1/3 py-3 bg-{{$provider['color']}}-500 rounded-lg font-semibold text-white hover:bg-{{$provider['color']}}-600 focus:outline-none focus:ring-2 focus:ring-{{$provider['color']}}-500 mr-2">
-            <i class="{{$provider['icon']}} fa-lg mr-3"></i>
-            {{$provider['name']}}
-          </a>
-        @endforeach
-      </div>
       <p class="mt-4 text-sm text-center">Don’t have an account? <a href="{{route("register")}}" class="text-blue-400 hover:underline">Register</a></p>
     </form>
   </div>

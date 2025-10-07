@@ -11,7 +11,7 @@ class LogoutController extends Controller{
     
     public function logout(Request $request){
         Auth::logout();
-        return redirect()->to('/')->with('success', 'You are out');
+        return redirect()->to('login')->with('success', 'You are out');
     }
     public function logoutDevice(Request $request, Session $session){
         $session->delete();

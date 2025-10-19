@@ -1,100 +1,270 @@
-# Laravel Laravel-AuthCore - Custom Authentication and Admin Dashboard
+# RBAC (Role-Based Access Control)
 
-This project is a complete Laravel starter system with custom authentication, roles, and an admin dashboard.  
-It is fully built from scratch without using ready-made authentication packages, allowing full control and easy reuse in any future project.
+> Professional README for a manual RBAC (Roles & Permissions) API built with **Laravel 11**.
 
+---
 
-## Project Overview
+## Overview
 
-The system provides a ready-to-use Laravel structure that includes:
-- Custom login, registration, and logout features.
-- Role-based access (Admin / User).
-- Fully functional Admin Dashboard.
-- User management (add, edit, delete, filter).
-- Clean and simple Blade templates.
-- Ready to integrate with any new Laravel project.
+**RBAC** is a RESTful API built using Laravel 11 that implements a Role-Based Access Control system. It allows you to manage users, roles, and permissions with secure API endpoints designed for integration with web or mobile applications.
 
+The main goal is to provide a solid foundation for authentication, authorization, and fine-grained access control, while maintaining clarity and simplicity.
 
-## Installation Steps
+---
 
-1. Clone the repository to your local machine:
+## Key Features
 
-git clone https://github.com/MahmoudEbrahimmm/Laravel-Laravel-AuthCore.git
+* Laravel 11 + PHP 8.1+
+* Token-based authentication via **Laravel Sanctum**
+* Manual RBAC logic (no external packages required)
+* Full CRUD for Users, Roles, and Permissions
+* Role/Permission assignment and revocation
+* Middleware-based access checks
+* Consistent JSON responses for all endpoints
+* Ready for Postman or cURL testing
 
+---
 
-2. Install dependencies:
+## Requirements
 
+* PHP >= 8.1
+* Composer
+* Laravel 11
+* MySQL or any supported database
+* [Laravel Sanctum]
+
+---
+
+## Local Setup
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/MahmoudEbrahimmm/RBAC.git
+cd RBAC
+```
+
+2. **Install dependencies:**
+
+```bash
 composer install
-npm install && npm run dev
+```
 
+3. **Set up your environment file:**
 
-
-3. Copy the environment file and generate the app key:
-
+```bash
 cp .env.example .env
 php artisan key:generate
+```
 
+4. **Configure your database in `.env`:**
 
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=rbac_db
+DB_USERNAME=root
+DB_PASSWORD=
 
-4. Configure the database in the `.env` file:
+APP_NAME=RBAC
+APP_URL=http://localhost
+```
 
-DB_DATABASE=your_database_name
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+5. **Run migrations and seeders:**
 
-5. Run migrations:
-
+```bash
 php artisan migrate
+php artisan db:seed
+```
 
-## Create Admin User
+> Ensure the `personal_access_tokens` table exists after installing Sanctum.
 
-After running the migrations, you can create an admin user using the following command:
+6. **Run the development server:**
 
-php artisan create:admin
-
-
-You’ll be asked for:
-
-- Name  
-- Email  
-- Password  
-
-Then the system will automatically create the admin with full permissions.
-
-
-
-## Folder Structure
-
-- **app/Console/Commands** — contains the custom Artisan command `create:admin`.  
-- **app/Http/Controllers/Auth** — handles authentication logic.  
-- **resources/views** — Blade templates for authentication and dashboard.  
-- **routes/web.php** — defines routes and role-based access.  
-- **database/migrations** — database tables for users and roles.
-
-
-## Usage
-
-After installation, start the development server:
-
+```bash
 php artisan serve
+```
 
-Then open the browser and go to:
+---
 
-http://localhost:8000
+## Sanctum Installation (if not already installed)
 
+```bash
+composer require laravel/sanctum
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan migrate
+```
 
-Login using the admin credentials you created through the command above to access the admin dashboard.
+Then in `app/Models/User.php`, ensure you have:
 
+```php
+use Laravel\Sanctum\HasApiTokens;
 
-## Author
+class User extends Authenticatable
+{
+    use HasApiTokens, HasFactory, Notifiable;
+}
+```
 
-**Mahmoud Ebrahim**  
-Back-End Developer (PHP & Laravel)  
-[GitHub](https://github.com/MahmoudEbrahimmm)  
-[LinkedIn](https://www.linkedin.com/in/mahmoud-ebrahim-347057277)  
-Email: mahmoud.backend.laravel@gmail.com
+---
 
+## Database Structure (Summary)
+
+* **users**
+* **roles**
+* **permissions**
+* **model_has_roles** (pivot)
+* **role_has_permissions** (pivot)
+
+> You can use your own structure or integrate with a package like Spatie if desired.
+
+---
+
+## API Endpoints
+
+> All routes return JSON and require `Accept: application/json` header.
+
+### Authentication
+
+| Method | Endpoint             | Description                       |
+| ------ | -------------------- | --------------------------------- |
+| POST   | `/api/auth/register` | Register a new user               |
+| POST   | `/api/auth/login`    | Login and receive an access token |
+| POST   | `/api/auth/logout`   | Logout (invalidate token)         |
+
+### Users
+
+| Method    | Endpoint          | Description       |
+| --------- | ----------------- | ----------------- |
+| GET       | `/api/users`      | Get all users     |
+| GET       | `/api/users/{id}` | Get user details  |
+| POST      | `/api/users`      | Create a new user |
+| PUT/PATCH | `/api/users/{id}` | Update user       |
+| DELETE    | `/api/users/{id}` | Delete user       |
+
+### Roles
+
+| Method    | Endpoint          |
+| --------- | ----------------- |
+| GET       | `/api/roles`      |
+| POST      | `/api/roles`      |
+| GET       | `/api/roles/{id}` |
+| PUT/PATCH | `/api/roles/{id}` |
+| DELETE    | `/api/roles/{id}` |
+
+### Permissions
+
+| Method    | Endpoint                |
+| --------- | ----------------------- |
+| GET       | `/api/permissions`      |
+| POST      | `/api/permissions`      |
+| GET       | `/api/permissions/{id}` |
+| PUT/PATCH | `/api/permissions/{id}` |
+| DELETE    | `/api/permissions/{id}` |
+
+### Role/Permission Assignment
+
+| Method | Endpoint                            | Description                 |
+| ------ | ----------------------------------- | --------------------------- |
+| POST   | `/api/users/{id}/assign-role`       | Assign a role to user       |
+| POST   | `/api/users/{id}/revoke-role`       | Remove a role from user     |
+| POST   | `/api/roles/{id}/assign-permission` | Assign permission to role   |
+| POST   | `/api/roles/{id}/revoke-permission` | Remove permission from role |
+
+---
+
+## Example Requests
+
+### Login
+
+```bash
+curl -X POST "http://localhost:8000/api/auth/login" \
+  -H "Accept: application/json" \
+  -d "email=admin@example.com&password=secret"
+```
+
+### Protected Route
+
+```bash
+curl -X GET "http://localhost:8000/api/users" \
+  -H "Authorization: Bearer {TOKEN}" \
+  -H "Accept: application/json"
+```
+
+---
+
+## Seeder Example
+
+```php
+Role::create(['name' => 'admin']);
+Permission::create(['name' => 'manage_users']);
+
+$admin = User::factory()->create(['email' => 'admin@example.com']);
+$admin->assignRole('admin');
+```
+
+---
+
+## Middleware & Access Control
+
+Create custom middlewares to verify user roles or permissions before accessing routes.
+Examples: `CheckRole`, `CheckPermission`.
+
+---
+
+## Error Handling
+
+All responses should follow a unified JSON format:
+
+```json
+{
+  "success": false,
+  "message": "Resource not found",
+  "errors": {}
+}
+```
+
+HTTP Status Codes used: `200`, `201`, `400`, `401`, `403`, `404`, `422`, `500`.
+
+---
+
+## Testing
+
+Use Laravel’s built-in test suite:
+
+```bash
+php artisan test
+```
+
+Focus on testing: authentication, authorization, CRUD operations, and middleware logic.
+
+---
+
+## Security
+
+* Never commit your `.env` file.
+* Add to `.gitignore`: `.env`, `/vendor`, `/node_modules`.
+* Implement password policies and optional email verification.
+
+---
+
+## Contributing
+
+Contributions are welcome! Feel free to open an **Issue** or **Pull Request** with detailed explanations.
+
+---
 
 ## License
 
-This project is open-source and available under the MIT License.
+This project is open-sourced under the **MIT License**.
+
+---
+
+## Contact
+
+For questions or feedback, please open an issue on the repository.
+
+---
+
+*End of README*

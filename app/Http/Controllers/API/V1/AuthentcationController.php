@@ -41,6 +41,8 @@ class AuthentcationController extends Controller
         return response()->json( ['msg' => 'Logout successfully'], 200);
     }
     public function profile(Request $request){
-
+        return response()->json([
+            'user' => UserResource::make($request->user())
+        ]);
     }
 }

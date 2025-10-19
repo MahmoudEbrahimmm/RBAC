@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,8 +26,15 @@ class AuthentcationController extends Controller
         return response()->json(['message' => 'Invalid acounte'], 401);
     }
 
-    public function register(Request $request){
+    public function register(RegisterRequest $request){
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
 
+        $user = User::create($data);
+        return response()->json([
+            'msg' => 'Regetrtion successfuly',
+            'user' => UserResource::make($user)
+        ], 201);
     }
     public function logout(Request $request){
 

@@ -12,7 +12,7 @@ class LoginRequest extends FormRequest{
 
     public function rules(): array{
         return [
-            'identifier' => 'required|max:255',
+            'identifier' => 'nullable|max:255',
             'password' => 'required|string|max:255',
             'remember' => 'nullable|in:on,off',
         ];

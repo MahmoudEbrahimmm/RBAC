@@ -33,5 +33,19 @@ class User extends Authenticatable
         return $this->hasMany(Session::class);
     }
 
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+    public function permissions(){
+        return $this->belongsToMany(Permission::class);
+    }
+
+    public function getAllPermissions(){
+        $directPermissions = $this->permissions->pluk('name')->toArray();
+        $rolePermissions = $this->roles->flaMap(fn($role) => $role->permissions
+            ->pluk('name'))->toArray();
+
+        return array_unique(array_merge($directPermissions, $rolePermissions));
+    }
 
 }

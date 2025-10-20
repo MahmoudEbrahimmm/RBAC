@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\API\V1\AuthentcationController;
+use App\Http\Controllers\API\V1\PermissionController;
+use App\Http\Controllers\API\V1\RoleController;
 use App\Http\Controllers\API\V1\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Authentaction Route
@@ -21,6 +22,17 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/users','store');
         Route::put('/users/{user}','update');
         Route::delete('/users/{user}','destroy');
-
     });
+
+    // Role Management Routes
+    Route::controller(RoleController::class)->group(function(){
+        Route::get('/roles','index');
+        Route::get('/roles/{role}','show');
+        Route::post('/roles','store');
+        Route::put('/roles/{role}','update');
+        Route::delete('/roles/{role}','destroy');
+    });
+
+    // Permission Management Routes
+    Route::get('/permissions',[PermissionController::class,'index']);
 });

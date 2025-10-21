@@ -17,7 +17,7 @@ Route::middleware('auth:sanctum')->group(function(){
 
     // User Management Routes
     Route::controller(UserController::class)->group(function(){
-        Route::get('/users','index');
+        Route::get('/users','index')->middleware('hasPermissions:view_users');
         Route::get('/users/{user}','show');
         Route::post('/users','store');
         Route::put('/users/{user}','update');

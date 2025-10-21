@@ -46,11 +46,15 @@ class User extends Authenticatable
     }
 
     public function getAllPermissions(){
-        $directPermissions = $this->permissions->pluk('name')->toArray();
-        $rolePermissions = $this->roles->flaMap(fn($role) => $role->permissions
-            ->pluk('name'))->toArray();
+        $directPermissions = $this->permissions->pluck('name')->toArray();
+        $rolePermissions = $this->roles->flatMap(fn($role) => $role->permissions
+            ->pluck('name'))->toArray();
 
         return array_unique(array_merge($directPermissions, $rolePermissions));
+    }
+
+    public function hasPermissions(array $permissions){
+        return !empty(array_intersect($this->getAllPermissions(), $permissions));
     }
 
 }

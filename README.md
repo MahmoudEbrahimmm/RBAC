@@ -27,7 +27,8 @@ Ideal for integrating authentication and authorization layers into web or mobile
 🧪 Ready for Postman or cURL testing
 
 🧰 Setup Instructions
-git clone https://github.com/MahmoudEbrahimmm/RBAC.git
+Postman https://postman.co/workspace/My-Workspace~a5494b49-f2f4-4ec7-8258-cb72513fa45a/collection/38543342-9c8fc052-e73c-4757-9491-1ee47657dd0a
+
 cd RBAC
 composer install
 cp .env.example .env

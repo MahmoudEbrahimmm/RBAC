@@ -12,7 +12,9 @@ class UserResource extends JsonResource
         return [
             'ID' => $this->id,
             'Name' => $this->name,
-            'E-mail' => $this->email
+            'E-mail' => $this->email,
+            'PERMISSIONS' => $this->whenLoaded('permissions', $this->permissions->pluck('name')),
+            'ROLES' => RoleResource::collection($this->whenLoaded('roles')),
         ];
     }
 }

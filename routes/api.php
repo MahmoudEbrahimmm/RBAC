@@ -24,6 +24,13 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::delete('/users/{user}','destroy');
     });
 
+    // Assign:Remove permissions to user
+    Route::post('/users/{user}/permissions',[UserController::class,'assignPermissions']);
+    Route::delete('/users/{user}/permissions',[UserController::class,'removePermissions']);
+    // Assign:Remove roles to users
+    Route::post('/users/{user}/roles',[UserController::class,'assignRoles']);
+    Route::delete('/users/{user}/roles',[UserController::class,'removeRoles']);
+
     // Role Management Routes
     Route::controller(RoleController::class)->group(function(){
         Route::get('/roles','index');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\Roles\AssignPermissionsRequest;
 use App\Http\Requests\API\V1\Roles\RoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
@@ -42,6 +43,23 @@ class RoleController extends Controller
         $role->delete();
         return response()->json([
             'msg' => 'Deleted role successfully'
+        ]);
+    }
+    
+    public function assignPermissions(AssignPermissionsRequest $request, Role $role){
+        $permissions = $request->input('permissions',[]);
+        $role->permissions()->sync($permissions);
+        return response()->json([
+            'msg' => 'Permissions assigned successfully',
+            'role' => RoleResource::make($role->load('permissions'))
+        ]);
+    }
+    public function removePermissions(Request $request, Role $role){
+        $permissions = $request->input('permissions', []);
+        $role->permissions()->detach($permissions);
+        return response()->json([
+            'msg' => 'Permissions removed successfully',
+            'role' => RoleResource::make($role->load('permissions'))
         ]);
     }
 }

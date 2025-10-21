@@ -33,6 +33,10 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::delete('/roles/{role}','destroy');
     });
 
+    // Assign:Remove permissions to role
+    Route::post('/roles/{role}/permissions',[RoleController::class,'assignPermissions']);
+    Route::delete('/roles/{role}/permissions',[RoleController::class,'removePermissions']);
+
     // Permission Management Routes
     Route::get('/permissions',[PermissionController::class,'index']);
 });
